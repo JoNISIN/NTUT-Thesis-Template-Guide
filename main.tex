@@ -52,15 +52,22 @@
 \input{style} % change style
 \input{env}   % define environment and parameters
 \setlang{zh}  % change the base-lang `zh`-中文 `en`-英文
+\setdegree{ms} % change format of degree `ms`-碩士論文 `phd`-博士論文  
+
+\setmainfont{Times New Roman}  % 可自定義英文內文主要字體 (預設)
+% \setCJKmainfont{標楷體}         % 可自定義中文內文主要字體 (Windows 內建楷體)
+\setCJKmainfont{標楷體-繁}      % 可自定義中文內文主要字體 (Mac OS 內建楷體)
+% \setCJKmainfont{教育部標準楷書}  % 可自定義中文內文主要字體 (教育部提供下載的楷體)
+% \setCJKmainfont{cwTeXKai}      % Overleaf 可用中文楷體
+% \setCJKmainfont{TW-Kai}        % Overleaf 可用中文楷體
 
 % Define parameters for initialization
-\settitles{集成自動化工具的 \LaTeX{} 臺北科技大學學位論文模板與使用指引}{A User Guide for the \LaTeX Thesis Template of NTUT with Integrated Automation Tools}
+\renewcommand{\titlezh}{集成自動化工具的 \LaTeX{} 臺北科技大學學位論文模板與使用指引}
+\renewcommand{\titleen}{A User Guide for the \LaTeX Thesis Template of NTUT with Integrated Automation Tools}
 \renewcommand{\authorzh}{佚名}
 \renewcommand{\authoren}{Anonymous}
 \renewcommand{\advisorzh}{佚名}
 \renewcommand{\advisoren}{Guidonymous}
-\renewcommand{\degreezh}{碩士}
-\renewcommand{\degreeen}{Master}
 \renewcommand{\depzh}{電子工程系}
 \renewcommand{\depen}{Department of Electronic Engineering}
 \renewcommand{\schoolzh}{國立臺北科技大學}
@@ -72,14 +79,18 @@
 \renewcommand{\semesterzh}{二}
 \renewcommand{\semesteren}{2}
 
+% \setcounter{tocdepth}{1} % 修改目錄深度
+
 \begin{document}
 
 %封面
-\makecoverpage
+\makecoverpage % 生成論文紙本封面 (僅紙本論文需要)
 
-\maketitlepage
+\maketitlepage % 生成電子論文封面 (電子論文從此頁開始)
 
-\checkresult{} % {}中填入審定書檔名
+\checkresult{} % {}中填入審定書檔名 (相對路徑上的檔名)
+% \makeverif{\depzh}{\authorzh}              % 生成審定書模板，兩個參數為 {系所名}{學生名}
+% \onlyverificationletter{\depzh}{\authorzh} % 生成審定書模板並終止編譯
 
 \begin{init} % 羅馬數字標記區域
 
@@ -108,7 +119,7 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
 
 \chapter{Introduction}
 
-本文是一份臺北科技大學學位論文的\LaTeX{}排版範本，同時也是本範本的引導文件與簡易的\LaTeX{}教程。在這份教程中會
+本文是一份臺北科技大學碩博士學位論文的\LaTeX{}排版範本，同時也是本範本的引導文件與簡易的\LaTeX{}教程，在今年 (2025年) 已有使用此模板的文章通過了學校圖書館的審核。在這份教程中會
 \begin{enumerate*}
     \item 簡易的介紹本範本中所提供的核心自動化功能、
     \item 本範本中的檔案結構、
@@ -119,8 +130,8 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
 本範本的編纂過程中參考了多項文件，其中包含：
 \begin{itemize}
     \item 本校(\schoolzh)法規一覽表頁面 \cite{ntutrule} 中編號為\textbf{J1}的\linkurl{https://oaa.ntut.edu.tw/var/file/8/1008/img/2966/J1.pdf}{論文撰寫規範書}與編號為\textbf{J2}的\linkurl{https://oaa.ntut.edu.tw/var/file/8/1008/img/2966/J2.pdf}{論文撰寫範例}。
-    \item 本校圖書館所提供的學位論文相關說明下載區\cite{ntutlibdown}，該網頁中提供了多項與學位論文有關的檔案下載。其中``學位論文編輯''表格中的\textbf{本校學位論文格式範本}。該範本中包含兩份可供參考的PDF文件於\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/Thesis_Template(chi)(3).pdf}{{PDF}}與\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/論文範本_說明版(中)(1).pdf}{{說明}}。此外，該表格中也提供了另外的Latex範本由學生分享於 \linkurl{https://github.com/ntut-xuan/NTUT-Thesis-Template}{Github}。
-    \item 由於學校並無特別規定參考文獻格式，參考文獻格式應遵循各科系主流格式即可。因此，我們在參考文獻格式方面的相關說明則參考於IEEE相關規範，其中主要包含了 IEEE Reference Guide \cite{ieeerefguide} 與 How to Use the IEEEtran BibTeX Style \cite{ieeebib}這兩份文件。同時，我們也會藉由BibTeX 官方的説明 \cite{bibtex}，討論如何在不使用\code{IEEEtran.bst} (IEEE提供的參考文獻風格文件) 的情況下實現IEEE的Reference格式\footnote{現在的Overleaf已經默認裝載了\code{IEEEtran.sty}與\code{IEEEtran.bst}這兩個風格化文件，可以在不依賴外部檔案的情況下直接撰寫IEEE格式的論文。}。
+    \item 本校圖書館所提供的學位論文相關說明下載區\cite{ntutlibdown}，該網頁中提供了多項與學位論文有關的檔案下載。其中``學位論文編輯''表格中的\textbf{本校學位論文格式範本}。該範本中包含兩份可供參考的PDF文件於\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/Thesis_Template(chi)(3).pdf}{{PDF}}與\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/論文範本_說明版(中)(1).pdf}{{說明}}。此外，該表格中也提供了另外的\LaTeX 範本由學生分享於 \linkurl{https://github.com/ntut-xuan/NTUT-Thesis-Template}{Github}。
+    \item 由於學校並無特別規定參考文獻格式，參考文獻格式應遵循各科系主流格式即可。因此，我們在參考文獻格式方面的相關說明則參考於IEEE相關規範，其中主要包含了 IEEE Reference Guide \cite{ieeerefguide} 與 How to Use the IEEEtran BibTeX Style \cite{ieeebib}這兩份文件。同時，我們也會藉由BibTeX 官方的説明 \cite{bibtex}，討論如何在不使用\code{IEEEtran.bst} (IEEE提供的參考文獻風格文件) 的情況下實現IEEE的Reference格式\footnote{現在的Overleaf已經默認裝載了\code{IEEEtran.sty}與\code{IEEEtran.bst}這兩個風格化文件，可以在不依賴外部檔案的情況下直接撰寫IEEE格式的論文。若需要在本地端使用該格式則需要至\linkurl{https://ctan.org/tex-archive/macros/latex/contrib/IEEEtran/bibtex}{{CTAN}}之類的網站下載模板檔案。}
 \end{itemize}
 在撰寫論文的同時記得在各自系上網頁查看必要要求，並可於 \cite{ntutsheet} 查詢相關文獻以及在\cite{ntutlibcommit}確認畢業流程。另一方面，務必\textbf{注意}，您的論文頁數與引用數量都應比這篇模板/介紹之內容要多得多。如果內容量不及本篇文章，請務必再擴充文本與內容。
 
@@ -146,18 +157,20 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
 
 如今大多數可見的學位論文模板廣泛的使用\code{\textbackslash{}input}指令並將其視為``便於模組化''的開發工具。這可以讓主文件看起來簡潔，但是反而容易喪失了整合開發環境(integrated development environment, IDE)提供自動補全的便利性，也反而更難構造各個文章段落和交叉引用之間的關係。同時，在``正文之外''很多因為各人之間複用性高而真正需要模板化的部分卻沒有真正的模板化，反而需要各人手動調整。這不僅帶來了不便，而且也喪失了\LaTeX 自動化排版的巨大優勢。
 
-在這個模板中我們不僅提供了已經經過光學比對誤差足夠小的排版模板，同時我們也提供了自動化工具以在給定了各個研究生必須的個人訊息後可以藉由足夠直覺的指令自動生成下面頁面而無須手動修改文本與計算頁數：
+在這個模板中我們不僅提供了已經經比對誤差足夠小的排版模板，同時我們也提供了自動化工具以在給定了各個研究生必須的個人訊息後可以藉由足夠直覺的指令自動生成下面頁面而無須手動修改文本與計算頁數：
 \begin{enumerate}
-    \item 論文封面
+    \item 論文封面\footnote{只有紙本需要，其排版與書名頁一致，但無須浮水印。}
     \item 空白頁
-    \item 書名頁\footnote{電子論文由此開始}
-    \item 學位論文口試委員會審定書 (碩士、博士)
-    \item 中文摘要
+    \item 書名頁\footnote{電子論文由此開始} (有浮水印)
+    \item 學位論文口試委員會審定書 (碩士、博士) (無浮水印)
+    \item 中文摘要 (以下皆需要有浮水印)
     \item 英文摘要
     \item 誌謝
     \item 目錄
     \item 表目錄
     \item 圖目錄
+    \item 正文
+    \item 參考文獻
 \end{enumerate}
 除此之外，針對誌謝、目錄、表目錄、圖目錄、參考文獻與章節標題格式這些中文與英文論文有區別的部分也可以藉由簡單的指令直接切換論文中所有相關的設定。接下來我們會簡單的描述如何使用這些自動化工具，然後再進一步的說明如果不喜歡這些格式，或是需要進一步調整這些格式應該於何處用什麼代碼進行處理。
 
@@ -168,8 +181,7 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
     \item 中文標題為\showcmd{titlezh}，英文姓名為\showcmd{titleen}。
     \item 中文姓名為\showcmd{authorzh}，英文姓名為\showcmd{authoren}。
     \item 中文指導教授姓名為\showcmd{advisorzh}，英文指導教授姓名為\showcmd{advisoren}。
-    \item 中文學位名稱為\showcmd{degreezh}，英文學位名稱為\showcmd{degreeen}。
-    \item 中文系所名稱為\showcmd{depzh}，英文系所名稱為\showcmd{depen}。
+    \item 中文系所名稱為\showcmd{depzh}，英文系所名稱為\showcmd{depen}\footnote{中英文系所名稱可以參考 \cite{ntutlibdown} \textbf{中【學位論文編輯 Thesis Formatting \& Editing】}區塊的\linkurl{https://docs.google.com/spreadsheets/d/1wAHMhnIWY9Bz_gxoTRj-H6elGue5LYqnvvObSbWubVs/edit?usp=sharing}{{學位論文系所名稱參照表}}}。
     \item 中文學校名稱為\showcmd{schoolzh}，英文學校名稱為\showcmd{schoolen}。
     \item 中文畢業民國年為\showcmd{yearzh}，英文畢業西元年為\showcmd{yearen}。
     \item 中文畢業月份為\showcmd{monzh}，英文畢業月份為\showcmd{monen}。
@@ -182,7 +194,7 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
 
 注意，為了避免初學使用者不知道英在何處更新參數才能有效影響文檔內容，本模板已經在\textbf{導言區}\footnote{document環境(\code{\showcmd{begin\{document\}}})開始之前的區域，反之在\showcmd{begin\{document\}}...\showcmd{end\{document\}}之間的則是正文，而\showcmd{end\{document\}}後的代碼不會被處理。}定義好了所有參數的變更指令，使用者可以直接在其中變更所需要變更的參數即可。
 
-\subsection{自動化指令}
+\subsection{自動化指令與碩博士論文中英文排版}
 
 在這一小節中會簡要的介紹那些自動化生成特定頁面的指令的應用方式與具體行為。首先生成\linkpg{pg:coverpage}{封面頁}的指令為\code{\showcmd{makecoverpage}}，這個指令會生成一個特定格式的封面頁，以及規定上緊隨其後的空白頁。接著，作為上傳``電子論文''第一頁的\linkpg{pg:titlepage}{書名頁}則是使用\code{\showcmd{maketitlepage}}執行。上述這兩個指令都會根據``指令下達前所定義''的
 \begin{enumerate*}
@@ -201,15 +213,44 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
 \begin{lstlisting}
 \checkresult{}
 \end{lstlisting}
-則會如\linkpg{pg:certificate}{現在的狀態}一般生成一個佔用頁提示尚未完成審定書的插入並指示審定書最終的放置位置。這個範本同樣也提供了以\LaTeX 生成的自動化審定書排版可供使用，其具體指令為：
+則會如\linkpg{pg:certificate}{現在的狀態}一般生成一個\textbf{\textit{佔用頁}}提示尚未完成審定書的插入並指示審定書最終的放置位置。這個範本同樣也提供了以\LaTeX 生成的自動化審定書排版可供使用，其具體指令為：
 \begin{lstlisting}
-\makeverifmaster{系所}{姓名}
+\makeverif{系所}{姓名}
 \end{lstlisting}
 如果填入系所與姓名，可以獲得自動排版的審定書提供列印\footnote{由於需要口試委員簽名，最終都需要以外部檔案的方式才能插入於文檔之中。}，如果欄位留空則可以獲得僅填入畢業民國年為\showcmd{yearzh}的排版結果。如果想要盡可能最大化利用先前填入的必要參數則可以參考下面指令生成排版結果：
 \begin{lstlisting}
-\makeverifmaster{\depzh\degreezh{}班}{\authorzh}
+\makeverif{\depzh}{\authorzh}
 \end{lstlisting}
-由於碩士班與博士班的模板有微妙區別，這裡也分為兩種指令分別為碩士班模板生成\showcmd{makeverifmaster}和博士班模板生成\showcmd{makeverifphd}。這兩種指令的使用方式皆如同上面所述。
+此外，為了方面審定書的使用，本模板中額外提供了 \code{\showcmd{onlyverificationletter}} 指令，以便於生成單獨的審定書 PDF 檔案。如果要使用本模板提供的審定書可以如下面描述的方式使用代碼。具體而言，模板中原本在 \code{\showcmd{begin}\{document\}} 下面有一段這樣的代碼：
+\begin{lstlisting}
+\begin{document}
+
+%封面
+\makecoverpage % 生成論文紙本封面 (僅紙本論文需要)
+
+\maketitlepage % 生成電子論文封面 (電子論文從此頁開始)
+
+\checkresult{} % {}中填入審定書檔名 (相對路徑上的檔名)
+% \makeverif{\depzh}{\authorzh}              % 生成審定書模板，兩個參數為 {系所名}{學生名}
+% \onlyverificationletter{\depzh}{\authorzh} % 生成審定書模板並終止編譯
+
+... % 後面內文不用在意
+\end{lstlisting}
+此時只要如下讓封面頁、書名頁、佔用頁\textbf{都不顯示}，而讓單獨生成審定書的\textbf{指令啟用}，即可獲得純粹的審定書PDF檔。
+\begin{lstlisting}
+\begin{document}
+
+%封面
+% \makecoverpage % 生成論文紙本封面 (僅紙本論文需要)
+
+% \maketitlepage % 生成電子論文封面 (電子論文從此頁開始)
+
+% \checkresult{} % {}中填入審定書檔名 (相對路徑上的檔名)
+% \makeverif{\depzh}{\authorzh}              % 生成審定書模板，兩個參數為 {系所名}{學生名}
+\onlyverificationletter{\depzh}{\authorzh} % 生成審定書模板並終止編譯
+
+... % 後面內文不用在意
+\end{lstlisting}
 
 \noindent {\Large\textbf{注意！}}雖然學校在\cite{ntutsheet}提供了MS Word (.doc) 與OpenDocument Text (.odt) 兩種格式，但是在不同辦公室軟體(MS Word/Apple Pages/OpenOffice/LibreOffice)上讀取檔案時可能會由於演算法不同、預設參數不同甚至字體庫不同而產生的排版結果差異，甚至於使排版結果產生錯亂。這時，由於\LaTeX 生成的檔案是直接的排版結果(PDF)，因此可以嘗試直接嘗試使用上述本模板提供之指令的生成結果。
 
@@ -227,27 +268,31 @@ This is a \LaTeX{} thesis template for Taipei Tech, and it’s also a beginner-f
     \item 表目錄和
     \item 圖目錄。
 \end{enumerate*}
-除此之外，在規定中這些非正文內容使用小寫羅馬字母作為頁碼，而正文使用阿拉伯數字作為頁碼。在此模板中使用\code{init}環境區分非正文內容與正文內容。在這個環境範圍內的內容會使用小寫羅馬數字標記頁碼，而之後的內容將重置使用阿拉伯數字作為頁碼。
+在規定中這些非正文內容使用小寫羅馬字母作為頁碼，而正文使用阿拉伯數字作為頁碼。在此模板中使用\code{init}環境區分非正文內容與正文內容。在這個環境範圍內的內容會使用小寫羅馬數字標記頁碼，而之後的內容將重置使用阿拉伯數字作為頁碼。
 
-除此之外，本模板中提供了\code{\showcmd{setlang}}指令，這個指令可以接收\code{zh}或是\code{en}的文字參數修改中英文的預定義排版規則。其中中文與英文的差異包含
+除此之外，注意到圖書館在 \cite{ntutlibdown} 中所提供的\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/Thesis_Template(chi)_20250226.pdf}{中文範本}與\linkurl{https://ndltdcc.ncl.edu.tw/userfiles/TIT00/files/Thesis_Template(eng)_20250218_1.pdf}{英文範本}其排版存在區別。為此，本模板中提供了\code{\showcmd{setlang}}指令，這個指令可以接收\code{zh}或是\code{en}的文字參數修改中英文的預定義排版規則，如\code{\showcmd{setlang}\{zh\}} 或 \code{\showcmd{setlang}\{en\}}。具體而言，這個指令會修改
 \begin{enumerate*}
-    \item 誌謝頁面到圖目錄頁面的標題英文化，以及
-    \item 章節標題的英文化。
+    \item 封面與書名頁、
+    \item 誌謝頁面到圖目錄頁面的標題，以及
+    \item 各個章節標題的中英文排版 (中英文化)。
+\end{enumerate*}
+另一方面，碩士班與博士班的模板也有微妙區別，在本模板中提供了 \code{\showcmd{setdegree}} 指令，可以使用 \code{phd} 或是\code{ms}的參數，如\code{\showcmd{setdegree}\{phd\}} 或 \code{\showcmd{setdegree}\{ms\}}修改
+\begin{enumerate*}
+    \item 審定書生成指令與
+    \item 封面頁與書名頁生成指令的文字顯示與排版。
 \end{enumerate*}
 
 \subsection{工作區檔案結構}
 
 這個模板中以\code{main.tex}作為主文件而\code{ref.bib}是BibTeX格式文獻資料的儲存檔案。除此諸外，模板中\code{style.tex}定義了模板中具體的排版攝鏡，\code{macros\_clean.tex}定義了論文中常用的指令，\code{env.tex}定義了本模板中提供的自動化指令以及撰寫本模板時使用到的文章格式指令，最後\code{makelist.tex}定義了目錄生成相關的指令。
 
-\subsection{排版細節微調}
+\subsection{字體與排版細節微調}
 
-如果需要調整具體的排版細節有兩種方式，一種是直接進入\code{style.tex}或者\code{env.tex}中修改排版細節，另一種是在這兩個檔案的\code{\showcmd{input}}之後修改排版格式。常見的排版格式修改包含標題的格式、段落間距和字體的修改。這方面的修改具體而言可以參考並搜尋下面幾條指令，由於文章篇幅關係這裡將不介紹其使用方式：
+如果需要調整具體的排版細節有兩種方式，一種是直接進入\code{style.tex}或者\code{env.tex}中修改排版細節，另一種是在這兩個檔案的\code{\showcmd{input}}之後修改排版格式。常見的排版格式修改包含標題的格式、段落間距和字體的修改\footnote{字體在新版的模板中是直接在\code{main.tex}中修改}。這方面的修改具體而言可以參考並搜尋下面幾條指令，由於文章篇幅關係這裡將不介紹其使用方式：
 \begin{lstlisting}
 % 字體設定
-\setmainfont{Times New Roman} % 設定英文字型 Times New Roman
-% \setCJKmainfont{cwTeXKai}   % 另一個Overleaf預安裝的楷體字體
-% \setCJKmainfont{標楷體.ttc}  % 工作區中上傳的標楷體檔案
-\setCJKmainfont{TW-Kai}       % 目前使用的楷體字體
+\setmainfont{...}        % 設定英文內文主要字體
+\setCJKmainfont{...}     % 設定中文內文主要字體
 
 % 段落與行間距設定
 \setlength{\parindent}{2em}
@@ -756,14 +801,96 @@ Z. Ge, S. Liu, F. Wang, Z. Li, and J. Sun, “Yolox: Exceeding yolo series in 20
   title        = {{YOLO}x: Exceeding {YOLO} series in 2021},
   author       = {Ge, Zheng and Liu, Songtao and Wang, Feng and Li, Zeming and Sun, Jian},
   year         = {2021},
-  note         = {\itshape arXiv:2107.08430}
+  note         = {{\itshape arXiv:2107.08430}}
 }
 \end{lstlisting}
-其中由於原先的\code{note}沒有斜體效果，因此這裡使用了\code{\showcmd{itshape}}指令用於生成斜體字體，這個BibTeX的排版結果可以參考\cite{ge2021yoloxAlt}
+其中由於原先的\code{note}沒有斜體效果，因此這裡使用了\code{\showcmd{itshape}}指令用於生成斜體字體並藉由\code{\{\itshape ...\}}不讓其效果外溢到其他項目，這個BibTeX的排版結果可以參考\cite{ge2021yoloxAlt}
 \begin{mdframed}
 Z. Ge, S. Liu, F. Wang, Z. Li, and J. Sun, “YOLOx: Exceeding YOLO series in 2021,” 2021, \textit{arXiv:2107.08430}.
 \end{mdframed}
 此時的排版格式便已經與IEEE期刊\cite{wang2024yolov8}與IEEE規範\cite{ieeerefguide}, \cite{ieeebib}完全一致。其他需要的參考文獻格式也可以用相似的方式藉由這些參考資料\cite{ieeerefguide}, \cite{ieeebib}, \cite{bibtex}, \cite{bibtexsty} 產生。
+
+\chapter{北科口試與離校作業細節}
+
+雖然北科已經在教務處頁面 \cite{ntutfinal} 提供了口試、畢業與離校相關的資訊，但是細節流程上的資訊零散的分散在教務處和圖書館的各個介面上。在這個章節中，我會根據自身的經驗整理從口試到離校的細節流程、所需的文件以及一些注意事項 \textit{(以下流程皆以電子工程系為例)}。
+
+\section{口試前準備}
+
+口試前的準備工作除了\cite{ntutfinal}以外還需主要參考三個網頁的內容，其中包含
+\begin{enumerate*}
+    \item \linkurl{https://oaa.ntut.edu.tw/p/412-1008-12839.php?Lang=zh-tw}{表單下載} \cite{ntutsheet}、
+    \item \linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/SLP.asp&ctNode=1604&CtUnit=460&BaseDSD=7&mp=100}{圖書館畢業生專區} \cite{ntutlibgraduate} 以及
+    \item \linkurl{https://cloud.ncl.edu.tw/ntut/}{碩博士論文系統 (國圖)} \cite{ntutlibupdate}。
+\end{enumerate*}
+這三個網頁實際上只為解決\textbf{口試申請}以及\textbf{論文查重}\footnote{重複率審核}這兩件事情。我在這裡整理了詳細的細節，方便畢業生作業的進行。
+
+\subsection{口試申請}
+
+首先，這個階段在\linkurl{https://oaa.ntut.edu.tw/p/412-1008-12839.php?Lang=zh-tw}{表單下載} \cite{ntutsheet} 頁面的 \textbf{(J) 學位考試區}中需要四份表單，其中包含
+\begin{itemize}
+    \item \textbf{學位考試申請書}：碩士班和博士班分別是 (J1) 和 (J7)。
+    \item \textbf{學位考試\ 委員名單}：碩士班和博士班分別是 (J5) 和 (J8)。
+    \item \textbf{學位考試申請名單彙整表-系所使用}：皆為 (J6)
+    \item \textbf{國立臺北科技大學學位論文原創性比對檢核表\textcolor{red}{（口試版）}}：皆為 (J16)
+\end{itemize}
+\textbf{學位考試申請書}主要是為檢核是否已經完成碩士與博士在學制上的基礎目標，即檢核是否滿足\textbf{學分數}、\textbf{英文門檻}和\textbf{學術倫理測驗}等 (博士生還需完成\textbf{資格考}、\textbf{博士候選人}審核與\textbf{論文計點})。\textbf{學位考試\ 委員名單}是為檢核口試委員是否滿足學校所規定之資格，以北科而言沒有疑慮\footnote{一定符合規範}的口試委員為大學的\textbf{教授}與\textbf{副教授}，但是需要注意\textbf{外校口委}的人數需求。口試委員盡可能及早邀請，以避免多個口試委員時間無法協調的狀況發生。如果口試委員發生變動則需要\textbf{學位考試委員異動申請表} (碩士為 (J2)，博士為 (J10))。口試委員確認後，視各系規定可能還需要填寫\textbf{學位考試申請名單彙整表-系所使用}交給系所之承辦人員。\textbf{國立臺北科技大學學位論文原創性比對檢核表{（口試版）}}則需要配合圖書館方面的\textbf{論文查重}進行。這份表單有分為\textbf{口試版}與\textbf{定稿版}，務必不要用錯。\textbf{學位考試申請書}、\textbf{學位考試\ 委員名單}都需要在\textbf{指導教授簽名}後送交至系辦公室 (或系所指定的其他單位)，而\textbf{國立臺北科技大學學位論文原創性比對檢核表{（口試版）}}也需要簽名但是在口試完後繳交即可。簡略而言，如\cite{ntutfinal}所述在表單方面口試申請需要填寫並送出以下資料：
+\begin{itemize}
+    \item 學位考試申請書
+    \item 論文初稿/摘要 (視系所規範)
+    \item 歷年成績單
+    \item 學位考試委員名單
+    \item 學術倫理修業證明 (儘早在真正要口試之前完成)
+    \item 英文門檻證明 (儘早在真正要口試之前完成並送核)
+\end{itemize}
+
+\subsection{論文查重}
+
+論文查重方面的流程在 \cite{ntutlibgraduate} 的 \linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/SLP.asp&ctNode=1604&CtUnit=460&BaseDSD=7&mp=100\#top1}{論文原創性比對及複核}在細節流程上已經描述相當清晰。總略地來說，北科這裡論文查重有使用到
+\begin{enumerate*}
+    \item Turnitin \cite{turnitin} 和
+    \item 國家圖書館臺灣博碩士論文知識加值系統 \cite{ntutlibupdate} 這兩個查重平台。
+\end{enumerate*}
+其中 Turnitin 大概每半年 (每學期) 更新一次查重的資料庫，其會比對國內外主流的學術論文資料庫中所包含的文章。而國圖的查重則著重在比對博碩士論文知識加值系統內所收藏的文章 (即過往的碩博論)。需要特別注意的是，Turnitin 的帳號需要先在\linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/genform.asp&mp=100&CtNodeId=1558}{圖書館的頁面}\footnote{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/genform.asp\&mp=100\&CtNodeId=1558}上\textbf{申請}再經由\textbf{人工審核}後才能使用，但可以使用非學校的常用電子郵件信箱進行註冊；而北科學位論文系統 \cite{ntutlibupdate} 的帳號則可以完全的\textbf{線上}註冊，但需要分為\textbf{兩個階段註冊兩個帳號}才能完成，細節可以參考北科的說明\cite{ntutlibupdate}的\textbf{帳號申請}說明。具體而言，其需要先註冊\linkurl{https://ndltd.ncl.edu.tw/}{博碩士論文知識加值系統}\cite{ndltd}的帳號，然後再用該帳號至\linkurl{https://cloud.ncl.edu.tw/ntut/in_pop3.php?school_id=316}{北科系統} \cite{ntut-ncl-reg} 註冊對應帳號。具體的論文比對操作可以參考\cite{ntutlibgraduate} \linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/SLP.asp&ctNode=1604&CtUnit=460&BaseDSD=7&mp=100\#top1}{論文原創性比對及複核}的\textbf{Step.2}中不同比對系統的\textbf{操作說明}。這兩個系統對於\textbf{即時的檢測}\footnote{大約5-15分鐘左右完成}都有\textbf{次數限制}，其中國圖系統的即時檢測\textbf{總共}就三次，而 Turnitin 則是\textbf{每個上傳區塊 (不同作業標題)}都有3次的即時檢測機會。此外，這兩個系統都會顯示重複的文字段落以及重複來源，而 Turnitin 的系統還會呈現具體重複率 (百分比) 以及來源文章的相似文字片段。Turnitin 所標註的全部重複率和各個來源的重複率就是在\textbf{國立臺北科技大學學位論文原創性比對檢核表{（口試版）}}中要檢核的目標，原則上所有來源\textbf{合計}不能超過$20\%$，單一來源不能超過$2\%$。
+
+當查重完成之後，正式口試前還需要完成\textbf{圖書館的複核}。這個複核需要在\linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/genform.asp&mp=100&CtNodeId=1600}{圖書館網頁上}\footnote{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/genform.asp\&mp=100\&CtNodeId=1600}進行申請，並由人工大概花費一個工作天左右完成。複核結果會以\textbf{電子郵件}形式回函，並且原則上在\textbf{口試時}需要\textbf{出示該複核結果}。在我自身的經驗中，這個複核過程更加傾向於確保``有正確的進行查重操作''\footnote{標題正確的同一初稿文章丟給兩個系統}而非看重於重複率本身。在申請複核時需要特別注意
+\begin{enumerate*}
+    \item 國圖的查重\textbf{報告}是否上傳到正確區塊 (作業標題)以及
+    \item Turnitin\textbf{提交物件代碼}\footnote{申請的網頁上有連結指向足夠詳盡的說明頁面}是否填寫正確。
+\end{enumerate*}
+
+\section{口試中與口試完成}
+
+在學位考試當天除了報告之外主要需要完成口試委員對多張表單的簽名與評分並送出考試委員的聘函 \cite{ntutlibgraduate}。這些表單同樣於 \cite{ntutsheet} 頁面的 \linkurl{https://oaa.ntut.edu.tw/p/412-1008-12839.php?Lang=zh-tw}{\textbf{(J) 學位考試區}} 下載，其中包含：
+\begin{itemize}
+    \item \textbf{學位考試-評分表} (J4)：各個口試委員各一張
+    \item \textbf{學位考試-成績表} (J15)：一張
+    \item \textbf{學位論文口試委員會審定書} (碩士 (J3), 博士 (J9))\footnote{或使用本模板提供的\LaTeX 編譯版}：一張
+\end{itemize}
+在口試完成之後需要向系辦繳回：
+\begin{itemize}
+    \item \textbf{學位考試-評分表}：委員簽名評分
+    \item \textbf{學位考試-成績表}：委員(簽名)評分
+    \item \textbf{學位論文口試委員會審定書}：委員簽名
+    \item \textbf{學位論文原創性比對檢核表{（口試版）}}：指導教授與口試學生簽名
+\end{itemize}
+
+\section{離校過程}
+
+根據口試結果修改完論文，並經由指導教授同意之後即可開始離校作業 \cite{ntutlibgraduate}。由於研究所學生被許可進行口試時基本上就已經確定除了畢業論文以外相關作業都已經完成了\footnote{口試申請的檢核內容}，因此通常而言在電子論文的審核以外幾乎不會發生任何障礙。而為了進一步明確流程，減少些流程上可能發生問題，原則上的流程大致如下：
+\begin{enumerate}
+    \item 定稿版本論文上傳 Turnitin 審核，並下載報告書
+    \item 定稿版本論文上傳國圖審核，並下載報告書
+    \item 在\linkurl{https://oaa.ntut.edu.tw/p/412-1008-12839.php?Lang=zh-tw}{表單下載} \cite{ntutsheet} 頁面的 \textbf{(J) 學位考試區}中下載\textbf{國立臺北科技大學學位論文原創性比對檢核表（論文定稿版）} (J19) 並由指導教授與學生簽名
+    \item 檢查電子論文格式 (套用本模板應該不會有問題，但編譯時仍須注意是有浮水印的書名頁開始)
+    \item 在北科學位論文系統 \cite{ntutlibupdate} 中完成電子論文上傳並建檔。由於\LaTeX 原始內容即為無格式純文字，因此建檔過程大多數複製貼上原始文件中的內容即可。但是需要注意，英文人名為\textbf{姓氏在前}且全大寫的格式，如 ``王小明'' 應為 ``WANG, XIAO MING''。還要注意，\textbf{整個}論文的頁數以\textbf{阿拉伯數字}的為準。同時，在填寫目錄頁碼較為雜亂，需要注意是否填錯。
+    \item 建檔完成後，印出兩份授權書 (注意標題，分別為北科圖書館和國家圖書館)，並在指導教授與學生簽名後合併 (ZIP或單一 PDF)。
+    \item 上傳合併後的授權書到學位論文系統
+    \item 送出電子論文審核 (大約一到二個工作天)
+    \item 完成審核之後編譯(或另外排版出)\textbf{紙本論文版檔案}，並根據格式印刷紙本論文 (至少一本，更多則以系所和研究室規範為準)，紙本論文\textbf{樣式}參考\linkurl{https://lib.ntut.edu.tw/sp.asp?xdurl=mp100/SLP.asp&ctNode=1604&CtUnit=460&BaseDSD=7&mp=100\#top6}{圖書館畢業生專區} 的 \textbf{6. 圖書館離校繳交} \cite{ntutlibgraduate}。
+    \item 收到\textbf{審核完成的電子郵件}後印出電子郵件，並帶著\textbf{審核結果電子郵件}、\textbf{兩份授權書正本}與\textbf{紙本論文}送交至圖書館
+    \item 至\textbf{入口網站}的\textbf{教務系統}中的\textbf{畢業生離校系統}，根據內部步驟說明開始離校作業。
+    \item 收到\textbf{離校審核完成}的電子郵件後，帶著印出的\textbf{審核通過電子郵件}與\textbf{學生證}至教務處領取畢業證書。
+\end{enumerate}
 
 \chapter{Conclusion}
 

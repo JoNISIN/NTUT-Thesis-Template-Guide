@@ -1,22 +1,15 @@
-\setmainfont{Times New Roman} % 設定英文字型 Times New Roman
-% \setCJKmainfont{cwTeXKai}               % 另一個預裝於Overleaf的楷體
-\setCJKmainfont{TW-Kai}                   % 當前預設字體
-%\setCJKmainfont[]{標楷體}                 % 設定中文字型標楷體
-%\newCJKfontfamily\boldkai{華康特粗楷體(P)} % 中文粗體使用
-
 \setlength{\parindent}{2em}
 \setlength\baselineskip{1em}
-\setlength{\parskip}{1em} % 這個與 \titlespacing*{\chapter}的最後一項應相加為3
-\linespread{1.5} % 1.85
+\setlength{\parskip}{1em}
+\linespread{1.5}
 
 \defaultCJKfontfeatures{AutoFakeBold=6,AutoFakeSlant=.4}
 
-
-\titlespacing*{\chapter}{0pt}{-1em}{2em} 
+\titlespacing*{\chapter}{0pt}{-1em}{2em}
 \titlespacing*{\section}{0pt}{0em}{-1em}
 \titlespacing*{\subsection}{0pt}{0em}{-1em}
 
-\titleformat{\chapter}[hang]{\centering\fontsize{20}{30}\bfseries}{Chapter\hspace{1ex}\thechapter}{0.5em}{}
+\titleformat{\chapter}[block]{\centering\fontsize{20}{30}\bfseries}{Chapter\hspace{1ex}\thechapter}{0.5em}{}
 
 % 設定目錄中的中文章節
 \titlecontents{chapter}[0em]{}{Chapter\hspace{1ex}\thecontentslabel\hspace{0.5em}}{}{\titlerule*{.}\contentspage}
@@ -30,7 +23,7 @@
 \setlist[itemize]{noitemsep,topsep=0em}
 
 \usepackage{listings}%程式碼區塊
-\newfontfamily\codefont{Noto Mono}
+\newfontfamily\codefont{Andale Mono}
 \newcommand{\code}[1]{$\,$\colorbox{black!15}{\codefont\selectfont #1}$\,$}
 \lstset{
     commentstyle=\color{magenta},
@@ -54,7 +47,7 @@
  \SetWatermarkScale{0.7}
  \SetWatermarkAngle{0}
 
-%%% Macro to disable watermark
+ %%% Macro to disable watermark
 \makeatletter
 \def\watermarkoff{\@sc@wm@stampfalse}
 \makeatother
@@ -64,7 +57,6 @@
 \def\watermarkon{\@sc@wm@stamptrue}
 \makeatother
 
-% https://latex.org/forum/viewtopic.php?t=29941
 \makeatletter
 \renewcommand\@dotsep{0}% default is 4.5
 \makeatother
